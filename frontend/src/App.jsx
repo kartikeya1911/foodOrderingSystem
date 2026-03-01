@@ -14,7 +14,6 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import MyOrders from './pages/MyOrders'
 import OrderTracking from './pages/OrderTracking'
-import Profile from './pages/Profile'
 import AdminDashboard from './pages/AdminDashboard'
 import OwnerDashboard from './pages/OwnerDashboard'
 
@@ -49,11 +48,6 @@ function App() {
             <Route path="/orders/:orderId" element={
               <ProtectedRoute>
                 <OrderTracking />
-              </ProtectedRoute>
-            } />
-            <Route path="/profile" element={
-              <ProtectedRoute>
-                <Profile />
               </ProtectedRoute>
             } />
             

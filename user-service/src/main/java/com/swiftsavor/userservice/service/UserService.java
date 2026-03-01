@@ -1,6 +1,5 @@
 package com.swiftsavor.userservice.service;
 
-import com.swiftsavor.userservice.dto.UpdateProfileRequest;
 import com.swiftsavor.userservice.dto.UserProfileResponse;
 import com.swiftsavor.userservice.entity.UserProfile;
 import com.swiftsavor.userservice.exception.UserNotFoundException;
@@ -22,19 +21,6 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
         
         return mapToResponse(profile);
-    }
-
-    public UserProfileResponse updateProfile(String username, UpdateProfileRequest request) {
-        UserProfile profile = userProfileRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
-        
-        profile.setFullName(request.getFullName());
-        profile.setEmail(request.getEmail());
-        profile.setPhone(request.getPhone());
-        profile.setAddress(request.getAddress());
-        
-        UserProfile updatedProfile = userProfileRepository.save(profile);
-        return mapToResponse(updatedProfile);
     }
 
     public List<UserProfileResponse> getAllUsers() {

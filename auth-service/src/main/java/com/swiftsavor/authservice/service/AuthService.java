@@ -8,11 +8,18 @@ import com.swiftsavor.authservice.exception.UserAlreadyExistsException;
 import com.swiftsavor.authservice.repository.UserRepository;
 import com.swiftsavor.authservice.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -28,6 +35,9 @@ public class AuthService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     public AuthResponse register(RegisterRequest request) {
         // Check if username exists
@@ -53,6 +63,14 @@ public class AuthService {
 
         User savedUser = userRepository.save(user);
 
+        // Create user profile in user-service
+        try {
+            createUserProfile(savedUser);
+        } catch (Exception e) {
+            // Log error but don't fail registration
+            System.err.println("Failed to create user profile in user-service: " + e.getMessage());
+        }
+
         // Generate JWT token
         String token = jwtUtil.generateToken(savedUser);
 
@@ -64,6 +82,25 @@ public class AuthService {
                 savedUser.getRole(),
                 "User registered successfully"
         );
+    }
+
+    private void createUserProfile(User user) {
+        String url = "http://user-service/users";
+        
+        Map<String, String> profileData = new HashMap<>();
+        profileData.put("username", user.getUsername());
+        profileData.put("email", user.getEmail());
+        profileData.put("fullName", user.getFullName());
+        profileData.put("role", user.getRole().toString());
+        profileData.put("phone", user.getPhone());
+        profileData.put("address", user.getAddress());
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        HttpEntity<Map<String, String>> request = new HttpEntity<>(profileData, headers);
+        
+        restTemplate.postForObject(url, request, Object.class);
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -83,6 +120,14 @@ public class AuthService {
 
         if (!user.getIsActive()) {
             throw new BadCredentialsException("User account is inactive");
+        }
+
+        // Ensure user profile exists in user-service
+        try {
+            createUserProfile(user);
+        } catch (Exception e) {
+            // Log error but don't fail login
+            System.err.println("Failed to sync user profile in user-service: " + e.getMessage());
         }
 
         // Generate JWT token

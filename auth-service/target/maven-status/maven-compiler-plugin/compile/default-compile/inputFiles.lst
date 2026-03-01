@@ -7,6 +7,7 @@ D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authser
 D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authservice\repository\UserRepository.java
 D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authservice\controller\AuthController.java
 D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authservice\util\JwtUtil.java
+D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authservice\config\RestTemplateConfig.java
 D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authservice\exception\UserAlreadyExistsException.java
 D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authservice\entity\User.java
 D:\PROJECTS\foodOrderingSystem\auth-service\src\main\java\com\swiftsavor\authservice\exception\GlobalExceptionHandler.java

@@ -45,10 +45,16 @@ public class Restaurant {
     
     private Double rating = 0.0;
     
+    private Integer ratingCount = 0;
+    
     @Column(nullable = false)
     private String cuisine;
     
     private String openingHours;
+    
+    private String openingTime;
+    
+    private String closingTime;
     
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodItem> foodItems = new ArrayList<>();

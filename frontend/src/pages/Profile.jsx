@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import { userService } from '../services/api';
+import { userService, restaurantService } from '../services/api';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 const Profile = () => {
+  const { user: authUser } = useAuth();
   const [profile, setProfile] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -16,7 +19,10 @@ const Profile = () => {
 
   useEffect(() => {
     fetchProfile();
-  }, []);
+    if (authUser?.role === 'RESTAURANT_OWNER') {
+      fetchRestaurants();
+    }
+  }, [authUser]);
 
   const fetchProfile = async () => {
     try {
@@ -32,6 +38,15 @@ const Profile = () => {
       toast.error('Failed to load profile');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchRestaurants = async () => {
+    try {
+      const data = await restaurantService.getMyRestaurants();
+      setRestaurants(data);
+    } catch (error) {
+      console.error('Failed to load restaurants:', error);
     }
   };
 
@@ -53,6 +68,25 @@ const Profile = () => {
         <Navbar />
         <div className="flex items-center justify-center py-16">
           <div className="text-xl">Loading profile...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="min-h-screen bg-light">
+        <Navbar />
+        <div className="flex items-center justify-center py-16">
+          <div className="text-center">
+            <p className="text-xl text-red-600 mb-4">Failed to load profile</p>
+            <button 
+              onClick={fetchProfile}
+              className="bg-primary hover:bg-red-600 text-white px-6 py-2 rounded transition"
+            >
+              Retry
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -157,6 +191,20 @@ const Profile = () => {
                 <label className="block text-gray-600 text-sm mb-1">Role</label>
                 <p className="text-lg font-semibold">{profile.role}</p>
               </div>
+              
+              {profile.role === 'RESTAURANT_OWNER' && restaurants.length > 0 && (
+                <div className="mb-6">
+                  <label className="block text-gray-600 text-sm mb-2">My Restaurants</label>
+                  <div className="space-y-2">
+                    {restaurants.map(restaurant => (
+                      <div key={restaurant.id} className="border rounded p-3 bg-gray-50">
+                        <p className="font-semibold">{restaurant.name}</p>
+                        <p className="text-sm text-gray-600">{restaurant.cuisine} • ⭐ {restaurant.rating?.toFixed(1) || 'New'}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               
               <button
                 onClick={() => setEditing(true)}

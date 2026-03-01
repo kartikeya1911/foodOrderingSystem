@@ -68,6 +68,15 @@ public class RestaurantController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{id}/rate")
+    public ResponseEntity<RestaurantResponse> rateRestaurant(
+            @PathVariable Long id,
+            @RequestParam Integer rating,
+            @RequestHeader("X-User-Username") String username) {
+        RestaurantResponse response = restaurantService.rateRestaurant(id, rating);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/health")
     public ResponseEntity<String> health() {
         return ResponseEntity.ok("Restaurant Service is running");

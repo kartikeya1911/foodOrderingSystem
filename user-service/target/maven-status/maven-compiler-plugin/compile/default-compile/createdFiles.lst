@@ -1,6 +1,7 @@
 com\swiftsavor\userservice\entity\UserProfile$Role.class
 com\swiftsavor\userservice\service\UserService.class
 com\swiftsavor\userservice\controller\UserController.class
+com\swiftsavor\userservice\dto\CreateUserRequest.class
 com\swiftsavor\userservice\UserServiceApplication.class
 com\swiftsavor\userservice\entity\UserProfile.class
 com\swiftsavor\userservice\dto\UserProfileResponse.class

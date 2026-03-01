@@ -24,4 +24,8 @@ public class RestaurantRequest {
     private String cuisine;
     
     private String openingHours;
+    
+    private String openingTime;
+    
+    private String closingTime;
 }

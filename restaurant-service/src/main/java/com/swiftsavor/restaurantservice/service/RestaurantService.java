@@ -27,8 +27,12 @@ public class RestaurantService {
         restaurant.setImageUrl(request.getImageUrl());
         restaurant.setCuisine(request.getCuisine());
         restaurant.setOpeningHours(request.getOpeningHours());
+        restaurant.setOpeningTime(request.getOpeningTime());
+        restaurant.setClosingTime(request.getClosingTime());
         restaurant.setOwnerUsername(ownerUsername);
         restaurant.setIsActive(true);
+        restaurant.setRating(0.0);
+        restaurant.setRatingCount(0);
         
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
         return mapToResponse(savedRestaurant);
@@ -50,6 +54,8 @@ public class RestaurantService {
         restaurant.setImageUrl(request.getImageUrl());
         restaurant.setCuisine(request.getCuisine());
         restaurant.setOpeningHours(request.getOpeningHours());
+        restaurant.setOpeningTime(request.getOpeningTime());
+        restaurant.setClosingTime(request.getClosingTime());
         
         Restaurant updatedRestaurant = restaurantRepository.save(restaurant);
         return mapToResponse(updatedRestaurant);
@@ -90,6 +96,28 @@ public class RestaurantService {
         restaurantRepository.delete(restaurant);
     }
 
+    public RestaurantResponse rateRestaurant(Long id, Integer rating) {
+        if (rating == null || rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("Rating must be between 1 and 5");
+        }
+        
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found with id: " + id));
+        
+        // Calculate new average rating
+        int currentCount = restaurant.getRatingCount() != null ? restaurant.getRatingCount() : 0;
+        double currentRating = restaurant.getRating() != null ? restaurant.getRating() : 0.0;
+        double totalRating = currentRating * currentCount;
+        int newCount = currentCount + 1;
+        double newRating = (totalRating + rating) / newCount;
+        
+        restaurant.setRating(Math.round(newRating * 10.0) / 10.0); // Round to 1 decimal
+        restaurant.setRatingCount(newCount);
+        
+        Restaurant updatedRestaurant = restaurantRepository.save(restaurant);
+        return mapToResponse(updatedRestaurant);
+    }
+
     private RestaurantResponse mapToResponse(Restaurant restaurant) {
         return new RestaurantResponse(
                 restaurant.getId(),
@@ -102,8 +130,11 @@ public class RestaurantService {
                 restaurant.getOwnerUsername(),
                 restaurant.getIsActive(),
                 restaurant.getRating(),
+                restaurant.getRatingCount(),
                 restaurant.getCuisine(),
                 restaurant.getOpeningHours(),
+                restaurant.getOpeningTime(),
+                restaurant.getClosingTime(),
                 restaurant.getCreatedAt(),
                 restaurant.getUpdatedAt()
         );

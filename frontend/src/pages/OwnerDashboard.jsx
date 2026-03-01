@@ -22,6 +22,9 @@ const OwnerDashboard = () => {
     phone: '',
     cuisine: '',
     openingHours: '',
+    openingTime: '',
+    closingTime: '',
+    imageUrl: '',
   });
 
   const [foodItemForm, setFoodItemForm] = useState({
@@ -31,6 +34,7 @@ const OwnerDashboard = () => {
     category: '',
     isVegetarian: false,
     isAvailable: true,
+    imageUrl: '',
   });
 
   useEffect(() => {
@@ -97,6 +101,9 @@ const OwnerDashboard = () => {
         phone: '',
         cuisine: '',
         openingHours: '',
+        openingTime: '',
+        closingTime: '',
+        imageUrl: '',
       });
       loadRestaurants();
     } catch (error) {
@@ -123,6 +130,7 @@ const OwnerDashboard = () => {
         category: '',
         isVegetarian: false,
         isAvailable: true,
+        imageUrl: '',
       });
       loadFoodItems(selectedRestaurant.id);
     } catch (error) {
@@ -161,6 +169,9 @@ const OwnerDashboard = () => {
       phone: restaurant.phone || '',
       cuisine: restaurant.cuisine,
       openingHours: restaurant.openingHours || '',
+      openingTime: restaurant.openingTime || '',
+      closingTime: restaurant.closingTime || '',
+      imageUrl: restaurant.imageUrl || '',
     });
     setShowRestaurantForm(true);
   };
@@ -172,8 +183,9 @@ const OwnerDashboard = () => {
       description: item.description || '',
       price: item.price,
       category: item.category,
-      isVegetarian: item.vegetarian,
-      isAvailable: item.available,
+      isVegetarian: item.isVegetarian,
+      isAvailable: item.isAvailable,
+      imageUrl: item.imageUrl || '',
     });
     setShowFoodItemForm(true);
   };
@@ -264,6 +276,33 @@ const OwnerDashboard = () => {
                   value={restaurantForm.openingHours}
                   onChange={(e) => setRestaurantForm({...restaurantForm, openingHours: e.target.value})}
                 />
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  <div>
+                    <label className="block text-sm mb-1">Opening Time</label>
+                    <input
+                      type="time"
+                      className="w-full border p-2 rounded"
+                      value={restaurantForm.openingTime}
+                      onChange={(e) => setRestaurantForm({...restaurantForm, openingTime: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-1">Closing Time</label>
+                    <input
+                      type="time"
+                      className="w-full border p-2 rounded"
+                      value={restaurantForm.closingTime}
+                      onChange={(e) => setRestaurantForm({...restaurantForm, closingTime: e.target.value})}
+                    />
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Image URL (optional)"
+                  className="w-full border p-2 rounded mb-3"
+                  value={restaurantForm.imageUrl}
+                  onChange={(e) => setRestaurantForm({...restaurantForm, imageUrl: e.target.value})}
+                />
                 <div className="flex gap-2">
                   <button type="submit" className="bg-primary text-white px-4 py-2 rounded flex-1">
                     Create
@@ -279,6 +318,9 @@ const OwnerDashboard = () => {
                         phone: '',
                         cuisine: '',
                         openingHours: '',
+                        openingTime: '',
+                        closingTime: '',
+                        imageUrl: '',
                       });
                     }}
                     className="bg-gray-300 px-4 py-2 rounded flex-1"
@@ -398,7 +440,7 @@ const OwnerDashboard = () => {
                   </div>
                   <div className="bg-gray-50 p-4 rounded">
                     <h3 className="font-semibold mb-2">Status</h3>
-                    <p className="text-lg">{selectedRestaurant.active ? '🟢 Active' : '🔴 Inactive'}</p>
+                    <p className="text-lg">{selectedRestaurant.isActive ? '🟢 Active' : '🔴 Inactive'}</p>
                   </div>
                 </div>
               </div>
@@ -429,9 +471,9 @@ const OwnerDashboard = () => {
                             <p className="text-primary font-bold">₹{item.price}</p>
                             <div className="flex gap-2 mt-2">
                               <span className="text-xs bg-gray-200 px-2 py-1 rounded">{item.category}</span>
-                              {item.vegetarian && <span className="text-xs bg-green-200 px-2 py-1 rounded">🌱 Veg</span>}
-                              <span className={`text-xs px-2 py-1 rounded ${item.available ? 'bg-green-200' : 'bg-red-200'}`}>
-                                {item.available ? 'Available' : 'Unavailable'}
+                              {item.isVegetarian && <span className="text-xs bg-green-200 px-2 py-1 rounded">🌱 Veg</span>}
+                              <span className={`text-xs px-2 py-1 rounded ${item.isAvailable ? 'bg-green-200' : 'bg-red-200'}`}>
+                                {item.isAvailable ? 'Available' : 'Unavailable'}
                               </span>
                             </div>
                           </div>
@@ -603,6 +645,33 @@ const OwnerDashboard = () => {
                 value={restaurantForm.openingHours}
                 onChange={(e) => setRestaurantForm({...restaurantForm, openingHours: e.target.value})}
               />
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                <div>
+                  <label className="block text-sm mb-1">Opening Time</label>
+                  <input
+                    type="time"
+                    className="w-full border p-2 rounded"
+                    value={restaurantForm.openingTime}
+                    onChange={(e) => setRestaurantForm({...restaurantForm, openingTime: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm mb-1">Closing Time</label>
+                  <input
+                    type="time"
+                    className="w-full border p-2 rounded"
+                    value={restaurantForm.closingTime}
+                    onChange={(e) => setRestaurantForm({...restaurantForm, closingTime: e.target.value})}
+                  />
+                </div>
+              </div>
+              <input
+                type="text"
+                placeholder="Image URL (optional)"
+                className="w-full border p-2 rounded mb-3"
+                value={restaurantForm.imageUrl}
+                onChange={(e) => setRestaurantForm({...restaurantForm, imageUrl: e.target.value})}
+              />
               <div className="flex gap-2">
                 <button type="submit" className="bg-primary text-white px-4 py-2 rounded flex-1">
                   {editingRestaurant ? 'Update' : 'Create'}
@@ -619,6 +688,9 @@ const OwnerDashboard = () => {
                       phone: '',
                       cuisine: '',
                       openingHours: '',
+                      openingTime: '',
+                      closingTime: '',
+                      imageUrl: '',
                     });
                   }}
                   className="bg-gray-300 px-4 py-2 rounded flex-1"
@@ -686,6 +758,13 @@ const OwnerDashboard = () => {
                 />
                 Available
               </label>
+              <input
+                type="text"
+                placeholder="Image URL (optional)"
+                className="w-full border p-2 rounded mb-3"
+                value={foodItemForm.imageUrl}
+                onChange={(e) => setFoodItemForm({...foodItemForm, imageUrl: e.target.value})}
+              />
               <div className="flex gap-2">
                 <button type="submit" className="bg-primary text-white px-4 py-2 rounded flex-1">
                   {editingFoodItem ? 'Update' : 'Add'}
@@ -702,6 +781,7 @@ const OwnerDashboard = () => {
                       category: '',
                       isVegetarian: false,
                       isAvailable: true,
+                      imageUrl: '',
                     });
                   }}
                   className="bg-gray-300 px-4 py-2 rounded flex-1"

@@ -2,6 +2,7 @@ D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userser
 D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userservice\dto\UserProfileResponse.java
 D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userservice\UserServiceApplication.java
 D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userservice\service\UserService.java
+D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userservice\dto\CreateUserRequest.java
 D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userservice\exception\UserNotFoundException.java
 D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userservice\repository\UserProfileRepository.java
 D:\PROJECTS\foodOrderingSystem\user-service\src\main\java\com\swiftsavor\userservice\entity\UserProfile.java

@@ -76,6 +76,12 @@ export const restaurantService = {
   deleteFoodItem: async (foodItemId) => {
     await axiosInstance.delete(`/restaurants/food-items/${foodItemId}`);
   },
+
+  // Rating
+  rateRestaurant: async (restaurantId, rating) => {
+    const response = await axiosInstance.post(`/restaurants/${restaurantId}/rate?rating=${rating}`);
+    return response.data;
+  },
 };
 
 export const orderService = {
@@ -120,18 +126,6 @@ export const orderService = {
 
   updateOrderStatus: async (orderId, status) => {
     const response = await axiosInstance.put(`/orders/${orderId}/status?status=${status}`);
-    return response.data;
-  },
-};
-
-export const userService = {
-  getProfile: async () => {
-    const response = await axiosInstance.get('/users/profile');
-    return response.data;
-  },
-
-  updateProfile: async (profileData) => {
-    const response = await axiosInstance.put('/users/profile', profileData);
     return response.data;
   },
 };

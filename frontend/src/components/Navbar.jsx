@@ -51,11 +51,6 @@ const Navbar = () => {
                     Owner Dashboard
                   </Link>
                 )}
-
-                {/* Common authenticated link */}
-                <Link to="/profile" className="hover:text-primary transition">
-                  Profile
-                </Link>
                 
                 <button
                   onClick={handleLogout}

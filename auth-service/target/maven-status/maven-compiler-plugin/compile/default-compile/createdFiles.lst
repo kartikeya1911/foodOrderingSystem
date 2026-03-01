@@ -8,6 +8,7 @@ com\swiftsavor\authservice\util\JwtUtil.class
 com\swiftsavor\authservice\AuthServiceApplication.class
 com\swiftsavor\authservice\controller\AuthController.class
 com\swiftsavor\authservice\service\AuthService.class
+com\swiftsavor\authservice\config\RestTemplateConfig.class
 com\swiftsavor\authservice\config\SecurityConfig.class
 com\swiftsavor\authservice\exception\GlobalExceptionHandler.class
 com\swiftsavor\authservice\entity\User.class
