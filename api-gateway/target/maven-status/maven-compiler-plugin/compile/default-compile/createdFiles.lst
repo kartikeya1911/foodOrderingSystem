@@ -1,0 +1,6 @@
+com\swiftsavor\gateway\filter\RouteValidator.class
+com\swiftsavor\gateway\config\GatewayConfig.class
+com\swiftsavor\gateway\filter\AuthenticationFilter$Config.class
+com\swiftsavor\gateway\filter\AuthenticationFilter.class
+com\swiftsavor\gateway\util\JwtUtil.class
+com\swiftsavor\gateway\ApiGatewayApplication.class

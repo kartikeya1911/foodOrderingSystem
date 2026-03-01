@@ -1,0 +1,14 @@
+com\swiftsavor\authservice\repository\UserRepository.class
+com\swiftsavor\authservice\dto\AuthResponse.class
+com\swiftsavor\authservice\exception\UserAlreadyExistsException.class
+com\swiftsavor\authservice\security\CustomUserDetailsService.class
+com\swiftsavor\authservice\dto\LoginRequest.class
+com\swiftsavor\authservice\entity\User$Role.class
+com\swiftsavor\authservice\util\JwtUtil.class
+com\swiftsavor\authservice\AuthServiceApplication.class
+com\swiftsavor\authservice\controller\AuthController.class
+com\swiftsavor\authservice\service\AuthService.class
+com\swiftsavor\authservice\config\SecurityConfig.class
+com\swiftsavor\authservice\exception\GlobalExceptionHandler.class
+com\swiftsavor\authservice\entity\User.class
+com\swiftsavor\authservice\dto\RegisterRequest.class

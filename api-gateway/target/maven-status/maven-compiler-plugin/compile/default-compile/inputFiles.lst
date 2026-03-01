@@ -1,0 +1,5 @@
+D:\PROJECTS\foodOrderingSystem\api-gateway\src\main\java\com\swiftsavor\gateway\filter\AuthenticationFilter.java
+D:\PROJECTS\foodOrderingSystem\api-gateway\src\main\java\com\swiftsavor\gateway\ApiGatewayApplication.java
+D:\PROJECTS\foodOrderingSystem\api-gateway\src\main\java\com\swiftsavor\gateway\util\JwtUtil.java
+D:\PROJECTS\foodOrderingSystem\api-gateway\src\main\java\com\swiftsavor\gateway\filter\RouteValidator.java
+D:\PROJECTS\foodOrderingSystem\api-gateway\src\main\java\com\swiftsavor\gateway\config\GatewayConfig.java

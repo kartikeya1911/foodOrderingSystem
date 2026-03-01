@@ -1,0 +1,30 @@
+                   ┌────────────────────┐
+                   │  Eureka Server     │
+                   └─────────┬──────────┘
+                             │
+                   ┌─────────▼──────────┐
+                   │   API Gateway      │
+                   └─────────┬──────────┘
+                             │
+ ┌────────────┬──────────────┬──────────────┬──────────────┐
+ │            │              │              │              │
+ Auth     User Service   Restaurant     Order         Payment
+Service                  Service        Service        Service
+
+
+
+
+| Service            | Port | Database |
+| ------------------ | ---- | -------- |
+| Eureka Server      | 8761 | None     |
+| API Gateway        | 8080 | None     |
+| Auth Service       | 8081 | MySQL    |
+| User Service       | 8082 | MySQL    |
+| Restaurant Service | 8083 | MySQL    |
+| Order Service      | 8084 | MongoDB  |
+| Payment Service    | 8085 | MySQL    |
+
+
+
+
+
